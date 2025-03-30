@@ -47,12 +47,7 @@ pnpm build
 
 #### パラメータ
 
-- `type` (optional): 組織の種類
-  - `business_unit`: 事業部
-  - `department`: 部署
-  - `team`: チーム
-- `parent_id` (optional): 親組織のID
-- `search` (optional): 組織名での検索
+なし
 
 #### レスポンス例
 
@@ -71,7 +66,7 @@ pnpm build
 
 ### get_organization_details
 
-特定の組織の詳細情報を取得します。
+特定の組織の詳細情報を取得します。連絡先情報を含みます。
 
 #### パラメータ
 
