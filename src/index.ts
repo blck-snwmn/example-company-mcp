@@ -13,34 +13,10 @@ const server = new McpServer({
 server.tool(
   "get_organizations",
   "組織構造の情報を取得します",
-  {
-    type: z.enum(['business_unit', 'department', 'team']).optional(),
-    parent_id: z.string().optional(),
-    search: z.string().optional(),
-  },
-  async (args) => {
-    let filtered = organizations.organizations;
-
-    // 組織タイプでフィルタリング
-    if (args.type) {
-      filtered = filtered.filter((org) => org.type === args.type);
-    }
-
-    // 親組織IDでフィルタリング
-    if (args.parent_id) {
-      filtered = filtered.filter((org) => org.parent_id === args.parent_id);
-    }
-
-    // 組織名で検索
-    if (args.search) {
-      const searchLower = args.search.toLowerCase();
-      filtered = filtered.filter((org) =>
-        org.name.toLowerCase().includes(searchLower)
-      );
-    }
-
+  {},
+  async () => {
     // 連絡先情報を除外した組織情報を返す
-    const organizationsWithoutContactInfo = filtered.map(({ contact_info, ...org }) => org);
+    const organizationsWithoutContactInfo = organizations.organizations.map(({ contact_info, ...org }) => org);
 
     return {
       content: [{ type: "text", text: JSON.stringify({ organizations: organizationsWithoutContactInfo }, null, 2) }]
